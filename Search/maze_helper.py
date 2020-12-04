@@ -20,8 +20,8 @@ def parse_maze(maze_str):
 def show_maze(maze):  
     """display a maze (numpy array)"""
     
-    cmap = colors.ListedColormap(['white', 'black', 'blue', 'green', 'red', 'gray'])
-    bounds = [0, 1, 2, 3, 4, 5, 6]
+    cmap = colors.ListedColormap(['white', 'black', 'blue', 'green', 'red', 'gray', 'orange'])
+    bounds = [0, 1, 2, 3, 4, 5, 6, 7]
     
     # make a deep copy first so the original maze is not changed
     maze = np.copy(maze)
@@ -33,6 +33,7 @@ def show_maze(maze):
     maze[maze == 'G'] = 3 # goal
     maze[maze == 'P'] = 4 # position/final path
     maze[maze == '.'] = 5 # visited squares
+    maze[maze == 'F'] = 6 # frontier
     # Converts all string values to integers
     maze = maze.astype(np.int)
         
@@ -71,11 +72,11 @@ def find_pos(maze, what = "S"):
     what: the letter to be found ('S' for start and 'G' for goal)
     
     Returns:
-    array: [x, y] for the found position.
+    a tupple (x, y) for the found position.
     """
     
     pos = np.where(maze == what)
-    return([pos[0][0], pos[1][0]])
+    return(tuple([pos[0][0], pos[1][0]]))
 
 
 def look(maze, pos):
